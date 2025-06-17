@@ -5,6 +5,6 @@ pydantic==2.4.2
 python-dotenv
 mysql-connector-python
 openai
-dateparser
+dateparser==1.2.1
 rasa==3.6.16
 rasa-sdk==3.6.16
