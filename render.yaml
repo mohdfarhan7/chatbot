@@ -10,6 +10,8 @@ services:
         value: https://rasa-server.onrender.com
       - key: ACTION_SERVER_URL
         value: https://action-server.onrender.com
+      - key: PORT
+        value: 10000
 
   - type: web
     name: action-server
@@ -19,4 +21,6 @@ services:
     healthCheckPath: /health
     envVars:
       - key: RASA_ACTIONS_URL
-        value: https://action-server.onrender.com 
+        value: https://action-server.onrender.com
+      - key: PORT
+        value: 10000 

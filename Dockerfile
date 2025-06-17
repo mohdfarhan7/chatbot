@@ -1,17 +1,26 @@
-FROM rasa/rasa:3.6.16
+FROM python:3.9-slim
 
-# Copy all project files
-COPY . /app
+# Set working directory
 WORKDIR /app
 
-# Install dependencies
-RUN pip install -r requirements.txt
+# Copy requirements first to leverage Docker cache
+COPY requirements.txt .
 
-# Train model at build time
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the rest of the application
+COPY . .
+
+# Train Rasa model
 RUN rasa train
 
 # Expose the port
-EXPOSE 5005
+EXPOSE 10000
 
-# Start Rasa server
-CMD ["run", "--enable-api", "--cors", "*", "--debug"]
+# Set environment variables
+ENV PYTHONUNBUFFERED=1
+ENV PORT=10000
+
+# Start the application
+CMD ["uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "10000"]
