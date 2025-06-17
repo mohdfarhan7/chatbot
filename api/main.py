@@ -21,7 +21,7 @@ app.add_middleware(
 )
 
 # Rasa server URL from environment variable
-RASA_API_URL = os.getenv("RASA_API_URL", "https://your-rasa-server-url.com")
+RASA_API_URL = os.getenv("RASA_API_URL", "http://localhost:5005")
 
 class Message(BaseModel):
     sender_id: str
