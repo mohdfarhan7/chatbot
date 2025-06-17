@@ -3,33 +3,41 @@ services:
     name: rasa-server
     env: docker
     dockerfilePath: ./Dockerfile
-    plan: free
+    plan: starter
     envVars:
       - key: RASA_API_URL
-        value: http://rasa-server:5005
+        value: https://rasa-server.onrender.com
       - key: RASA_ACTIONS_URL
         value: https://action-server.onrender.com
       - key: PORT
         value: 5005
+    healthCheckPath: /status
+    autoDeploy: true
 
   - type: web
     name: action-server
     env: docker
     dockerfilePath: ./actions/Dockerfile
-    plan: free
+    plan: starter
     envVars:
       - key: RASA_ACTIONS_URL
         value: https://action-server.onrender.com
       - key: PORT
         value: 5055
+      - key: OPENAI_API_KEY
+        sync: false
+    healthCheckPath: /health
+    autoDeploy: true
 
   - type: web
     name: fastapi-server
     env: docker
     dockerfilePath: ./api/Dockerfile
-    plan: free
+    plan: starter
     envVars:
       - key: RASA_API_URL
         value: https://rasa-server.onrender.com
       - key: PORT
-        value: 8034 
+        value: 8034
+    healthCheckPath: /api/health
+    autoDeploy: true 
