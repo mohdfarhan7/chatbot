@@ -4,8 +4,16 @@ requests>=2.31.0
 pydantic>=1.9.0,<3.0.0
 python-dotenv>=0.19.0
 mysql-connector-python
+<<<<<<< HEAD
 openai>=1.88.0
 dateparser>=1.2.1
 rasa==3.6.21
 rasa-sdk==3.6.1
 python-multipart>=0.0.5
+=======
+openai==1.88.0
+dateparser==1.2.1
+rasa==3.6.21
+rasa-sdk==3.6.1
+python-multipart==0.0.5
+>>>>>>> 9de92e0221493df9a5475f92cc72ce58b6fff61d
