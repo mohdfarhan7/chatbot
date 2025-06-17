@@ -1,5 +1,6 @@
-rasa-sdk==3.6.16
-python-dotenv
-mysql-connector-python
-openai
-dateparser 
+rasa-sdk==3.6.1
+python-dotenv>=0.19.0
+mysql-connector-python>=8.0.0
+openai>=1.88.0
+dateparser>=1.2.1
+pydantic>=1.9.0,<3.0.0 

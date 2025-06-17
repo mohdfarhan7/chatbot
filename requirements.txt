@@ -1,7 +1,7 @@
 fastapi>=0.68.1
 uvicorn>=0.15.0
 requests>=2.31.0
-pydantic>=1.9.0,<2.0.0
+pydantic>=1.9.0,<3.0.0
 python-dotenv>=0.19.0
 mysql-connector-python
 openai>=1.88.0
