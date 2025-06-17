@@ -1,10 +1,11 @@
-fastapi==0.104.1
-uvicorn==0.24.0
+fastapi==0.68.1
+uvicorn==0.15.0
 requests==2.31.0
-pydantic==2.4.2
-python-dotenv
+pydantic==1.8.2
+python-dotenv==0.19.0
 mysql-connector-python
 openai
 dateparser==1.2.1
 rasa==3.0.9
 rasa-sdk==3.0.9
+python-multipart==0.0.5
