@@ -17,7 +17,7 @@ services:
       - key: PORT
         value: 10000
       - key: PYTHON_VERSION
-        value: 3.8
+        value: 3.7
 
   - type: web
     name: action-server
@@ -35,4 +35,4 @@ services:
       - key: PORT
         value: 10000
       - key: PYTHON_VERSION
-        value: 3.8 
+        value: 3.7 

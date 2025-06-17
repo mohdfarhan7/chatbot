@@ -1,4 +1,4 @@
-FROM python:3.8-slim
+FROM python:3.7-slim
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -6,6 +6,7 @@ RUN apt-get update && apt-get install -y \
     python3-dev \
     python3-pip \
     python3-venv \
+    git \
     && rm -rf /var/lib/apt/lists/*
 
 # Set working directory

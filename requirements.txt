@@ -6,5 +6,5 @@ python-dotenv
 mysql-connector-python
 openai
 dateparser==1.2.1
-rasa==3.5.3
-rasa-sdk==3.5.3
+rasa==3.0.9
+rasa-sdk==3.0.9
