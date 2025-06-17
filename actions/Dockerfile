@@ -2,9 +2,11 @@ FROM rasa/rasa-sdk:3.6.1
 
 WORKDIR /app
 
-# Install curl for health checks (with proper permissions)
+# Switch to root user and install curl
 USER root
-RUN apt-get update && \
+RUN rm -rf /var/lib/apt/lists/* && \
+    apt-get clean && \
+    apt-get update && \
     apt-get install -y curl && \
     rm -rf /var/lib/apt/lists/*
 
