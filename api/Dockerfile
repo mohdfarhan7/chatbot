@@ -2,13 +2,13 @@ FROM python:3.8-slim
 
 WORKDIR /app
 
-# Copy requirements from root
-COPY ../requirements.txt ./
+# Copy requirements first to leverage Docker cache
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy FastAPI app code
+# Copy the rest of the application
 COPY . .
 
-EXPOSE 8000
+EXPOSE 8034
 
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"] 
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8034"] 

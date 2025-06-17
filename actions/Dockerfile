@@ -1,6 +1,9 @@
-FROM rasa/rasa-sdk:3.4.18
+FROM rasa/rasa-sdk:3.6.1
 
-WORKDIR /app/actions
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 

@@ -7,15 +7,30 @@ services:
       - "5005:5005"
     volumes:
       - .:/app
+    environment:
+      - RASA_API_URL=http://rasa:5005
+      - RASA_ACTIONS_URL=http://action-server:5055
     command:
       - run
       - --enable-api
       - --cors
       - "*"
 
-  action_server:
-    image: rasa/rasa-sdk:3.5.17
+  action-server:
+    build: ./actions
     ports:
       - "5055:5055"
     volumes:
       - ./actions:/app/actions
+    environment:
+      - RASA_ACTIONS_URL=http://action-server:5055
+
+  api:
+    build: ./api
+    ports:
+      - "8034:8034"
+    environment:
+      - RASA_API_URL=http://rasa:5005
+    depends_on:
+      - rasa
+      - action-server

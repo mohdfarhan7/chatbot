@@ -7,12 +7,21 @@ services:
     envVars:
       - key: RASA_API_URL
         value: http://rasa-server:5005
-    
+      - key: RASA_ACTIONS_URL
+        value: https://action-server.onrender.com
+      - key: PORT
+        value: 5005
+
   - type: web
     name: action-server
     env: docker
     dockerfilePath: ./actions/Dockerfile
     plan: free
+    envVars:
+      - key: RASA_ACTIONS_URL
+        value: https://action-server.onrender.com
+      - key: PORT
+        value: 5055
 
   - type: web
     name: fastapi-server
@@ -21,16 +30,6 @@ services:
     plan: free
     envVars:
       - key: RASA_API_URL
-    plan: standard
-    healthCheckPath: /health
-    buildCommand: |
-      pip install --upgrade pip
-      pip install -r requirements.txt
-    startCommand: rasa run actions
-    envVars:
-      - key: RASA_ACTIONS_URL
-        value: https://action-server.onrender.com
+        value: https://rasa-server.onrender.com
       - key: PORT
-        value: 10000
-      - key: PYTHON_VERSION
-        value: 3.7 
+        value: 8034 

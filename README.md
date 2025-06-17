@@ -1,96 +1,75 @@
-# Amused Chatbot Deployment Guide
+# Amused Chatbot
 
-This guide provides instructions for deploying the Amused chatbot on a Linux server.
+A Rasa-based chatbot with FastAPI integration, deployed on Render.
 
-## Prerequisites
+## Project Structure
 
-- Ubuntu/Debian-based server
-- SSH access with sudo privileges
-- Domain name (aitechnotech.in) pointing to the server
+```
+amused/
+├── api/                    # FastAPI server
+│   ├── Dockerfile
+│   └── main.py
+├── actions/               # Rasa custom actions
+│   ├── Dockerfile
+│   ├── requirements.txt
+│   ├── __init__.py
+│   └── actions.py
+├── data/                  # Rasa training data
+│   ├── nlu.yml
+│   ├── rules.yml
+│   └── stories.yml
+├── config.yml            # Rasa configuration
+├── credentials.yml       # Rasa credentials
+├── domain.yml           # Rasa domain
+├── endpoints.yml        # Rasa endpoints
+├── requirements.txt     # Python dependencies
+├── Dockerfile          # Main Docker configuration
+├── docker-compose.yml  # Docker services
+├── render.yaml         # Render deployment config
+├── runtime.txt         # Python runtime version
+├── .dockerignore      # Docker build exclusions
+└── .gitignore         # Git exclusions
+```
 
-## Deployment Steps
+## Deployment
 
-1. **Connect to the server**
+This project is configured for deployment on Render using Docker containers. The deployment consists of three services:
+
+1. Rasa Server (Port 5005)
+2. Action Server (Port 5055)
+3. FastAPI Server (Port 8034)
+
+### Deployment Steps
+
+1. Push your code to a Git repository
+2. Create a new Blueprint on Render
+3. Connect your repository
+4. Render will automatically deploy all services using the `render.yaml` configuration
+
+### Environment Variables
+
+The following environment variables are configured:
+
+- `RASA_API_URL`: URL of the Rasa server
+- `RASA_ACTIONS_URL`: URL of the Action server
+- `PORT`: Service port (varies by service)
+
+## Development
+
+### Local Development
+
+1. Install dependencies:
    ```bash
-   ssh aitechnotech@168.231.69.44
+   pip install -r requirements.txt
    ```
 
-2. **Clone the repository**
+2. Start services using Docker Compose:
    ```bash
-   cd /home/aitechnotech
-   git clone <repository-url> amused
-   cd amused
+   docker-compose up
    ```
 
-3. **Make the deployment script executable**
-   ```bash
-   chmod +x deploy.sh
-   ```
+### Testing
 
-4. **Run the deployment script**
-   ```bash
-   ./deploy.sh
-   ```
-
-## Service Management
-
-- **Check FastAPI service status**
-  ```bash
-  sudo systemctl status amused-api
-  ```
-
-- **Restart FastAPI service**
-  ```bash
-  sudo systemctl restart amused-api
-  ```
-
-- **Check Docker containers**
-  ```bash
-  docker-compose ps
-  ```
-
-- **View logs**
-  ```bash
-  # FastAPI logs
-  sudo journalctl -u amused-api
-
-  # Docker logs
-  docker-compose logs -f
-  ```
-
-## Ports Used
-
-- 80: Nginx (HTTP)
-- 8000: FastAPI Server
-- 5005: Rasa Server
-- 5055: Action Server
-
-## Environment Variables
-
-The following environment variables are used:
-- `RASA_API_URL`: URL of the Rasa server (default: http://localhost:5005)
-- `PORT`: Port for the FastAPI server (default: 8000)
-
-## Troubleshooting
-
-1. If the FastAPI service fails to start:
-   ```bash
-   sudo journalctl -u amused-api -n 50
-   ```
-
-2. If Docker containers fail to start:
-   ```bash
-   docker-compose logs
-   ```
-
-3. If Nginx fails to start:
-   ```bash
-   sudo nginx -t
-   sudo systemctl status nginx
-   ```
-
-## Security Notes
-
-- The server is configured to use HTTP. For production, please set up SSL/TLS certificates using Let's Encrypt.
-- Update the default passwords and credentials in the configuration files.
-- Regularly update the system and dependencies. 
+- FastAPI: http://localhost:8034/api/health
+- Rasa: http://localhost:5005/status
+- Action Server: http://localhost:5055/health 

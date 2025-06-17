@@ -1,2 +1,8 @@
 action_endpoint:
   url: "https://action-server.onrender.com/webhook"
+
+tracker_store:
+  type: InMemoryTrackerStore
+
+lock_store:
+  type: InMemoryLockStore
