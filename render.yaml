@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: rasa-server
+    env: docker
+    dockerfilePath: ./Dockerfile
+    plan: standard
+    healthCheckPath: /status
+    envVars:
+      - key: RASA_API_URL
+        value: https://rasa-server.onrender.com
+      - key: ACTION_SERVER_URL
+        value: https://action-server.onrender.com
+
+  - type: web
+    name: action-server
+    env: docker
+    dockerfilePath: ./actions/Dockerfile
+    plan: standard
+    healthCheckPath: /health
+    envVars:
+      - key: RASA_ACTIONS_URL
+        value: https://action-server.onrender.com 
