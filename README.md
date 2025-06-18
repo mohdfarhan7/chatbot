@@ -7,10 +7,8 @@ A Rasa-based chatbot with FastAPI integration, deployed on Render.
 ```
 amused/
 ├── api/                    # FastAPI server
-│   ├── Dockerfile
 │   └── main.py
 ├── actions/               # Rasa custom actions
-│   ├── Dockerfile
 │   ├── requirements.txt
 │   ├── __init__.py
 │   └── actions.py
@@ -23,53 +21,52 @@ amused/
 ├── domain.yml           # Rasa domain
 ├── endpoints.yml        # Rasa endpoints
 ├── requirements.txt     # Python dependencies
-├── Dockerfile          # Main Docker configuration
-├── docker-compose.yml  # Docker services
+├── app.py              # Main FastAPI application
 ├── render.yaml         # Render deployment config
-├── runtime.txt         # Python runtime version
-├── .dockerignore      # Docker build exclusions
-└── .gitignore         # Git exclusions
+└── runtime.txt         # Python runtime version
 ```
 
 ## Deployment
 
-This project is configured for deployment on Render using Docker containers. The deployment consists of three services:
+This project is configured for deployment on Render using Python. The deployment consists of a single service:
 
-1. Rasa Server (Port 5005)
-2. Action Server (Port 5055)
-3. FastAPI Server (Port 8034)
+1. FastAPI Server (Port 10000)
 
 ### Deployment Steps
 
 1. Push your code to a Git repository
-2. Create a new Blueprint on Render
+2. Create a new Web Service on Render
 3. Connect your repository
-4. Render will automatically deploy all services using the `render.yaml` configuration
+4. Render will automatically deploy using the `render.yaml` configuration
 
 ### Environment Variables
 
 The following environment variables are configured:
 
 - `RASA_API_URL`: URL of the Rasa server
-- `RASA_ACTIONS_URL`: URL of the Action server
-- `PORT`: Service port (varies by service)
+- `PORT`: Service port (default: 10000)
 
 ## Development
 
 ### Local Development
 
-1. Install dependencies:
+1. Create and activate a virtual environment:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
+
+2. Install dependencies:
    ```bash
    pip install -r requirements.txt
    ```
 
-2. Start services using Docker Compose:
+3. Start the FastAPI server:
    ```bash
-   docker-compose up
+   python app.py
    ```
 
 ### Testing
 
-- FastAPI: http://localhost:8034/api/health
-- Rasa: http://localhost:5005/status
-- Action Server: http://localhost:5055/health 
+- FastAPI: http://localhost:10000/api/health
+- API Documentation: http://localhost:10000/docs 

@@ -4,7 +4,6 @@ __pycache__/
 *$py.class
 *.so
 .Python
-env/
 build/
 develop-eggs/
 dist/
@@ -22,6 +21,7 @@ var/
 
 # Virtual Environment
 venv/
+env/
 ENV/
 
 # IDE
@@ -30,15 +30,30 @@ ENV/
 *.swp
 *.swo
 
-# Rasa
-.rasa/
-models/
-data/
-actions/__pycache__/
-
 # Environment variables
 .env
 .env.local
+.env.*.local
 
 # Logs
 *.log
+logs/
+log/
+
+# Cache
+.rasa/
+.cache/
+__pycache__/
+
+# Test files
+tests/
+trial/
+
+# Model files
+models/
+*.tar.gz
+
+# Temporary files
+*.tmp
+*.temp
+.DS_Store
